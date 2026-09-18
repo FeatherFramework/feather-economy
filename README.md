@@ -129,3 +129,22 @@ Shops remains excluded from currency supply privileges.
 Run `EconomyPaymentReversalContractSmokeTest` in the server console. Expect 7/7
 passes with no funds moved. Live reversal/restart tests follow the shop cancellation
 integration; do not reverse an already fulfilled purchase as an acceptance shortcut.
+# Organization treasury foundation
+
+`EnsureOrganizationTreasuries({ organizationId = UUID })` is a server-only,
+allowlisted provisioning export. It resolves an active canonical identity through
+feather-organizations and idempotently provisions one organization-owned treasury
+per catalog currency. It cannot seed funds or accept caller-selected account types.
+Provisioning authority does not grant player access or ownership-based spending rights.
+Organizations is resolved at call time, not an Economy startup dependency.
+
+Migration 004 extends account owner/type constraints without changing previously
+applied migration checksums. Existing wallets, journal entries, and system accounts
+are retained. Treasury transfers and Shops settlement routing are not enabled in
+this foundation slice; new and historical Shops payments remain unchanged.
+
+With DevMode enabled, run `EconomyTreasuryContractSmokeTest` (read-only), then
+`EconomyTreasuryProvisionTest <active organization UUID>` twice, including after
+an Economy restart. Provisioning creates zero-funded accounts, never journal funds.
+Identity lookup and local provisioning are not a cross-resource lifecycle lock;
+suspension racing a successful lookup may leave a harmless zero-funded treasury.

@@ -17,6 +17,7 @@ server_scripts {
     'server/migrations/001_economy_foundation.lua',
     'server/migrations/002_economy_accounts.lua',
     'server/migrations/003_economy_journal.lua',
+    'server/migrations/004_organization_treasuries.lua',
     'server/persistence/migrations.lua',
     'server/repositories/currencies.lua',
     'server/repositories/accounts.lua',
@@ -25,7 +26,8 @@ server_scripts {
     'server/services/foundation.lua',
     'server/services/api.lua',
     'server/main.lua',
-    'server/shop_tests.lua'
+    'server/shop_tests.lua',
+    'server/treasury_tests.lua'
 }
 
 dependencies {
