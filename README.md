@@ -2,14 +2,14 @@
 
 Authoritative monetary accounting for the Feather Framework.
 
-The current `0.1.0` foundation provides:
+The resource provides:
 
 - Feather Contract 1 results, health, capabilities, and readiness;
 - checksummed, idempotent database migrations;
 - validated `dollars` and `gold` currency definitions;
 - immutable persisted currency precision; and
 - read-only currency catalog exports;
-- atomic character and system account provisioning; and
+- atomic character, system, and organization treasury account provisioning; and
 - zero-balance account records with trusted server-only reads.
 
 Atomic wallet transfers, balanced journal entries, payload-bound idempotency,
@@ -157,3 +157,9 @@ suspension racing a successful lookup may leave a harmless zero-funded treasury.
 gate without moving funds. End-to-end treasury credit, replay, refund, and restart
 recovery are verified using Shops live tests. Provisioning identity does not confer
 spending authority; these are trusted server-service operations, not player routes.
+
+Recorded development acceptance: provisioning contract 6/6, two stable treasuries
+across server restart, settlement type gate 8/8, live treasury purchase credit=200
+exactly once, and undelivered refund restoring 200 with delivery blocked. Latest
+journal audit passed 5/5, pending=0, published=60. Treasury purchase/refund recovery
+across server restart is still pending; no production-readiness claim is implied.
