@@ -1,5 +1,30 @@
 if not Config.DevMode then return end
 
+RegisterCommand('EconomyTreasurySettlementContractSmokeTest', function(source)
+    if source ~= 0 then return end
+    local passed,total=0,0
+    local function Check(label,condition)
+        total=total+1
+        if condition then passed=passed+1 end
+        print(('[EconomyTreasurySettlementContractSmokeTest] %s %s'):format(label,condition and 'PASS' or 'FAIL'))
+    end
+    local wallet={account_type='wallet',owner_type='character'}
+    local treasury={account_type='treasury',owner_type='organization'}
+    local sink={account_type='system_sink',owner_type='system'}
+    local sourceAccount={account_type='system_source',owner_type='system'}
+    local terms={reasonCode='shop.purchase',referenceType='shop_order',referenceId=Config.SystemOwnerId}
+    local allowed=EconomyJournal.AccountTypesAllowed
+    Check('shop treasury credit allowed',allowed('transfer',wallet,treasury,terms)==true)
+    Check('generic treasury credit rejected',not allowed('transfer',wallet,treasury,{}))
+    Check('treasury withdrawal rejected',not allowed('transfer',treasury,wallet,terms))
+    Check('treasury supply rejected',not allowed('issue',sourceAccount,treasury,terms))
+    Check('treasury destruction rejected',not allowed('destroy',treasury,sink,terms))
+    Check('payment reversal type allowed',allowed('reversal',treasury,wallet,terms)==true)
+    Check('historical sink reversal allowed',allowed('reversal',sink,wallet,terms)==true)
+    Check('wrong treasury owner rejected',not allowed('transfer',wallet,{account_type='treasury',owner_type='character'},terms))
+    print(('[EconomyTreasurySettlementContractSmokeTest] done %d/%d passed (isolated account-type gate; no funds moved)'):format(passed,total))
+end,true)
+
 RegisterCommand('EconomyTreasuryContractSmokeTest', function(source)
     if source ~= 0 then return end
     local passed, total = 0, 0

@@ -140,11 +140,20 @@ Organizations is resolved at call time, not an Economy startup dependency.
 
 Migration 004 extends account owner/type constraints without changing previously
 applied migration checksums. Existing wallets, journal entries, and system accounts
-are retained. Treasury transfers and Shops settlement routing are not enabled in
-this foundation slice; new and historical Shops payments remain unchanged.
+are retained. Wallet-to-treasury settlement is restricted to `shop.purchase`
+transfers with a UUID `shop_order` reference. Normal treasury withdrawals, direct
+supply issuance to treasuries, and treasury destruction are not enabled.
+`ReversePayment` derives an exact refund from the caller's original committed
+payment and verifies its journal entries under lock; it supports treasury and
+historical system-sink destinations without accepting caller-selected amounts.
 
 With DevMode enabled, run `EconomyTreasuryContractSmokeTest` (read-only), then
 `EconomyTreasuryProvisionTest <active organization UUID>` twice, including after
 an Economy restart. Provisioning creates zero-funded accounts, never journal funds.
 Identity lookup and local provisioning are not a cross-resource lifecycle lock;
 suspension racing a successful lookup may leave a harmless zero-funded treasury.
+
+`EconomyTreasurySettlementContractSmokeTest` checks the isolated account-type
+gate without moving funds. End-to-end treasury credit, replay, refund, and restart
+recovery are verified using Shops live tests. Provisioning identity does not confer
+spending authority; these are trusted server-service operations, not player routes.

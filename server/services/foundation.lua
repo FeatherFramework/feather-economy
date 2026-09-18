@@ -180,6 +180,7 @@ function EconomyFoundation.GetCapabilities()
             currencyCatalog = 1,
             accounts = 1,
             organizationTreasuries = 1,
+            treasurySettlement = 1,
             transfers = 1,
             journal = 1,
             idempotency = 1,
