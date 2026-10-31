@@ -117,6 +117,10 @@ Config = {
                 referenceType = 'stables_tack_trade',
                 reversalReason = 'stables.tack_trade_refund'
             },
+            ['stables.horse_trade_payment'] = {
+                referenceType = 'stables_horse_trade',
+                reversalReason = 'stables.horse_trade_refund'
+            },
         },
     },
     -- Reason codes a resource may create currency into a character wallet with
@@ -131,6 +135,7 @@ Config = {
         },
         ['bcc-stables'] = {
             ['stables.tack_trade_sale'] = true,  -- Settles an accepted player tack trade
+            ['stables.horse_trade_sale'] = true, -- Settles an accepted player horse/package trade
             ['stables.tack_sale'] = true,        -- stable tack buy-back only
             ['stables.horse_sale'] = true,       -- the stable buys a horse
             ['stables.tamed_sale'] = true        -- a trainer buys a tamed horse

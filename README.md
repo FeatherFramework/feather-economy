@@ -8,7 +8,7 @@ never keep or change balances themselves.
 
 ## Status
 
-Current version: 0.5.1 (Contract 1). The live acceptance record below dates from 2026-10-13; scoped Stables refunds have offline coverage and await live acceptance.
+Current version: 0.5.2 (Contract 1). Adds scoped Stables horse-trade seller payouts and payment reversals. Paid horse/package trades passed Stables live acceptance; refund fault injection remains an offline test. The general live acceptance record below dates from 2026-10-13.
 
 ### Passed
 
