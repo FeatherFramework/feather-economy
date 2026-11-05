@@ -22,3 +22,7 @@ lua.execute((root / 'tests/reversal_spec.lua').read_text(encoding='utf-8'))
 preflight = LuaRuntime(unpack_returned_tuples=True)
 preflight.globals().arg = preflight.table_from({1: root.as_posix()})
 preflight.execute((root / 'tests/issue_preflight_spec.lua').read_text(encoding='utf-8'))
+
+checkout = LuaRuntime(unpack_returned_tuples=True)
+checkout.globals().arg = checkout.table_from({1: root.as_posix()})
+checkout.execute((root / 'tests/shared_checkout_spec.lua').read_text(encoding='utf-8'))
